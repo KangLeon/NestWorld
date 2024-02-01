@@ -10,6 +10,10 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const user_module_1 = require("./user/user.module");
 const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("./user/user.entity");
+const profile_entiry_1 = require("./user/profile.entiry");
+const logs_entity_1 = require("./logs/logs.entity");
+const roles_entiry_1 = require("./roles/roles.entiry");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -21,8 +25,8 @@ exports.AppModule = AppModule = __decorate([
                 port: 3306,
                 username: 'root',
                 password: 'Kangleon28',
-                database: 'xDB',
-                entities: [],
+                database: 'testDB',
+                entities: [user_entity_1.User, profile_entiry_1.Profile, logs_entity_1.Logs, roles_entiry_1.Roles],
                 synchronize: true,
                 logging: ['error'],
             }), user_module_1.UserModule],
