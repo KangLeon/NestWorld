@@ -3,26 +3,45 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
+  HttpStatus,
   Logger,
+  LoggerService,
 } from "@nestjs/common";
+import { HttpAdapterHost } from "@nestjs/core";
+
+import * as requestIp from "request-ip";
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  constructor(private logger: Logger) {}
+  constructor(
+    private readonly logger: Logger,
+    private readonly httpAdapterHost: HttpAdapterHost,
+  ) {}
   catch(exception: HttpException, host: ArgumentsHost) {
+    const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
 
     const response = ctx.getResponse();
     const request = ctx.getRequest();
     const status = exception.getStatus();
-    this.logger.error(exception.message, exception.stack);
 
-    response.status(status).json({
-      code: status,
+    const httpStatus =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
+    const reponseBody = {
+      header: request.headers,
+      query: request.query,
+      body: request.body,
+      params: request.params,
       timestamp: new Date().toISOString(),
-      path: request.url,
-      method: request.method,
-      message: exception.message || HttpException.name,
-    });
+      ip: requestIp.getClientIp(request),
+      exception: exception["name"],
+      error: exception["reponse"] || "Internal Server Error",
+    };
+
+    this.logger.error("[toimc]", reponseBody);
+
+    httpAdapter.reply(response, reponseBody, httpStatus);
   }
 }

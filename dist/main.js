@@ -8,7 +8,8 @@ async function bootstrap() {
     const logger = new common_1.Logger();
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix("api/v1");
-    app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter(logger));
+    const httpAdapter = app.get(core_1.HttpAdapterHost);
+    app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter(logger, httpAdapter));
     const port = 3000;
     await app.listen(3000);
     logger.log(`App 运行在端口: ${port}`);
