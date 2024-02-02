@@ -14,22 +14,33 @@ const user_entity_1 = require("./user/user.entity");
 const profile_entiry_1 = require("./user/profile.entiry");
 const logs_entity_1 = require("./logs/logs.entity");
 const roles_entiry_1 = require("./roles/roles.entiry");
+const logs_module_1 = require("./logs/logs.module");
+const config_1 = require("@nestjs/config");
+const configuration_1 = require("./configuration");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: '127.0.0.1',
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot({
+                type: "mysql",
+                host: "127.0.0.1",
                 port: 3306,
-                username: 'root',
-                password: 'Kangleon28',
-                database: 'testDB',
+                username: "root",
+                password: "Kangleon28",
+                database: "testDB",
                 entities: [user_entity_1.User, profile_entiry_1.Profile, logs_entity_1.Logs, roles_entiry_1.Roles],
                 synchronize: true,
-                logging: ['error'],
-            }), user_module_1.UserModule],
+                logging: ["error"],
+            }),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                load: [configuration_1.default],
+            }),
+            user_module_1.UserModule,
+            logs_module_1.LogsModule,
+        ],
         controllers: [],
         providers: [],
     })
