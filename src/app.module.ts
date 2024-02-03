@@ -9,28 +9,14 @@
 import { Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "./user/user.entity";
-import { Profile } from "./user/profile.entiry";
-import { Logs } from "./logs/logs.entity";
-import { Roles } from "./roles/roles.entiry";
 import { LogsModule } from "./logs/logs.module";
 import { ConfigModule } from "@nestjs/config";
 import configuration from "./configuration";
+import ormconfig from "ormconfig";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: "mysql",
-      host: "127.0.0.1",
-      port: 3306,
-      username: "root",
-      password: "Kangleon28",
-      database: "testDB",
-      entities: [User, Profile, Logs, Roles],
-      //同步本地的schema与数据库 -》 初始化的时候去使用
-      synchronize: true,
-      logging: ["error"],
-    }),
+    TypeOrmModule.forRoot(ormconfig),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
