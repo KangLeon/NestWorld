@@ -1,4 +1,7 @@
 db:
-  mysql:
-    host: 126.0.0.1
-    port: 3306
+    mysql:
+        host: 127.0.0.1
+        port: 3306
+        username: JY
+        password: Kangleon28
+        database: testDB

@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const logs_module_1 = require("./logs/logs.module");
 const config_1 = require("@nestjs/config");
 const configuration_1 = require("./configuration");
+const Joi = require("joi");
 const ormconfig_1 = require("../ormconfig");
 let AppModule = class AppModule {
 };
@@ -24,6 +25,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [configuration_1.default],
+                validationSchema: Joi.object({})
             }),
             user_module_1.UserModule,
             logs_module_1.LogsModule,
