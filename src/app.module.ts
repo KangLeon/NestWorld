@@ -10,7 +10,7 @@ import { Global, Logger, Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LogsModule } from "./logs/logs.module";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
 import configuration from "./configuration";
 import * as Joi from "joi";
 import ormconfig from "ormconfig";
