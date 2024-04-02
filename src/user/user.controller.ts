@@ -6,27 +6,46 @@
  * @FilePath: /NestWorld/src/user/user.controller.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Controller, Get, Logger, Post } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Delete, Get, Logger, Post } from "@nestjs/common";
+import { UserService } from "./user.service";
 
-@Controller('user')
+@Controller("user")
 export class UserController {
-  private logger = new Logger(UserController.name)
+  private logger = new Logger(UserController.name);
 
-  constructor(private userService: UserService) { 
-    this.logger.log("UserController init")
+  constructor(private userService: UserService) {
+    this.logger.log("UserController init");
   }
-  
 
   @Get()
   getUsers(): any {
-    this.logger.log("请求 getUsers 成功")
-    return this.userService.getUsers();
+    this.logger.log("请求 getUsers 成功");
+    return this.userService.findAll();
   }
 
-  @Post()
-  addUser(): any {
-    return this.userService.addUser();
+  // @Post()
+  // addUser(): any {
+  //   return this.userService.create();
+  // }
+
+  // @Post()
+  // updateUser(userId: string): any {
+  //   return this.userService.update(1, user);
+  // }
+
+  // @Delete()
+  // deleteUser(): any {
+  //   //TODO:传递参数
+  //   return this.userService.remove(1);
+  // }
+
+  @Get("/profile")
+  getUserProfile(): any {
+    return this.userService.findProfile(2);
   }
+
+  // @Get("logs")
+  // getUserLogs(): any {
+  //   return this.userService.findUser;
+  // }
 }
-  

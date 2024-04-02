@@ -8,6 +8,7 @@
  */
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Logs } from "src/entities/logs.entity";
 import { User } from "src/entities/user.entity";
 import { Repository } from "typeorm";
 
@@ -38,5 +39,16 @@ export class UserService {
 
   remove(id: number) {
     return this.userRepository.delete(id);
+  }
+
+  findProfile(id: number) {
+    return this.userRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        profile: true,
+      },
+    });
   }
 }

@@ -9,12 +9,15 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Logs } from "./logs.entity";
 import { Roles } from "./roles.entity";
+import { Profile } from "./profile.entity";
 
 @Entity()
 export class User {
@@ -33,4 +36,7 @@ export class User {
   @OneToMany(() => Roles, (roles) => roles.user)
   @JoinTable()
   roles: Roles[];
+
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile: Profile;
 }
