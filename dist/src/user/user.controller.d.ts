@@ -1,8 +1,11 @@
-import { UserService } from './user.service';
+import { LoggerService } from "@nestjs/common";
+import { UserService } from "./user.service";
+import { ConfigService } from "@nestjs/config";
 export declare class UserController {
     private userService;
-    private logger;
-    constructor(userService: UserService);
+    private configService;
+    private readonly logger;
+    constructor(userService: UserService, configService: ConfigService, logger: LoggerService);
     getUsers(): any;
-    addUser(): any;
+    getUserProfile(): any;
 }

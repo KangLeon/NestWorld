@@ -6,7 +6,7 @@
  * @FilePath: /NestWorld/src/app.module.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Module } from "@nestjs/common";
+import { Global, Logger, Module } from "@nestjs/common";
 import { UserModule } from "./user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LogsModule } from "./logs/logs.module";
@@ -15,6 +15,7 @@ import configuration from "./configuration";
 import * as Joi from "joi";
 import ormconfig from "ormconfig";
 
+@Global()
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
@@ -22,15 +23,13 @@ import ormconfig from "ormconfig";
       isGlobal: true,
       load: [configuration],
       //joi配置校验
-      validationSchema: Joi.object({
-        
-      })
+      validationSchema: Joi.object({}),
     }),
     UserModule,
     LogsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [Logger],
+  exports: [Logger],
 })
-
 export class AppModule {}

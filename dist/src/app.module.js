@@ -19,19 +19,21 @@ let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot(ormconfig_1.default),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [configuration_1.default],
-                validationSchema: Joi.object({})
+                validationSchema: Joi.object({}),
             }),
             user_module_1.UserModule,
             logs_module_1.LogsModule,
         ],
         controllers: [],
-        providers: [],
+        providers: [common_1.Logger],
+        exports: [common_1.Logger],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
