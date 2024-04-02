@@ -13,7 +13,7 @@ import { LogsModule } from "./logs/logs.module";
 import { ConfigModule } from "@nestjs/config";
 import configuration from "./configuration";
 import * as Joi from "joi";
-import ormconfig from "ormconfig";
+import { connectionParams } from "ormconfig";
 
 @Global()
 @Module({
@@ -25,7 +25,7 @@ import ormconfig from "ormconfig";
       validationSchema: Joi.object({}),
     }),
     LogsModule,
-    TypeOrmModule.forRoot(ormconfig),
+    TypeOrmModule.forRoot(connectionParams),
     UserModule,
   ],
   controllers: [],
