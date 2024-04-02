@@ -44,7 +44,6 @@ let HttpExceptionFilter = class HttpExceptionFilter {
 exports.HttpExceptionFilter = HttpExceptionFilter;
 exports.HttpExceptionFilter = HttpExceptionFilter = __decorate([
     (0, common_1.Catch)(common_1.HttpException),
-    __metadata("design:paramtypes", [common_1.Logger,
-        core_1.HttpAdapterHost])
+    __metadata("design:paramtypes", [Object, core_1.HttpAdapterHost])
 ], HttpExceptionFilter);
 //# sourceMappingURL=http-exception.filter.js.map

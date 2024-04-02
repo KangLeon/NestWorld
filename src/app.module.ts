@@ -18,15 +18,15 @@ import ormconfig from "ormconfig";
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forRoot(ormconfig),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
       //joi配置校验
       validationSchema: Joi.object({}),
     }),
-    UserModule,
     LogsModule,
+    TypeOrmModule.forRoot(ormconfig),
+    UserModule,
   ],
   controllers: [],
   providers: [Logger],

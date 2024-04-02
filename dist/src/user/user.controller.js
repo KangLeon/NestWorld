@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const config_1 = require("@nestjs/config");
+const nest_winston_1 = require("nest-winston");
 let UserController = class UserController {
     constructor(userService, configService, logger) {
         this.userService = userService;
@@ -46,7 +47,7 @@ __decorate([
 ], UserController.prototype, "getUserProfile", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("user"),
-    __param(2, (0, common_1.Inject)(common_1.Logger)),
+    __param(2, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_NEST_PROVIDER)),
     __metadata("design:paramtypes", [user_service_1.UserService,
         config_1.ConfigService, Object])
 ], UserController);

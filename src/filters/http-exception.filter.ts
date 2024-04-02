@@ -4,7 +4,6 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-  Logger,
   LoggerService,
 } from "@nestjs/common";
 import { HttpAdapterHost } from "@nestjs/core";
@@ -14,7 +13,7 @@ import * as requestIp from "request-ip";
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   constructor(
-    private readonly logger: Logger,
+    private readonly logger: LoggerService,
     private readonly httpAdapterHost: HttpAdapterHost,
   ) {}
   catch(exception: HttpException, host: ArgumentsHost) {

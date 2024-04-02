@@ -8,51 +8,21 @@
  */
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-import { Logger } from "@nestjs/common";
 import { HttpExceptionFilter } from "./filters/http-exception.filter";
 import { createLogger } from "winston";
 import * as winston from "winston";
-import { WinstonModule, utilities } from "nest-winston";
+import {
+  WINSTON_MODULE_NEST_PROVIDER,
+  WinstonModule,
+  utilities,
+} from "nest-winston";
 
 async function bootstrap() {
-  //Winston
-  const instance = createLogger({
-    transports: [
-      new winston.transports.Console({
-        level: "info",
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          utilities.format.nestLike(),
-        ),
-      }),
-      new winston.transports.DailyRotateFile({
-        level: "warn",
-        filename: "application-%DATE%.log",
-        datePattern: "YYYY-MM-DD-HH",
-        zippedArchive: true,
-        maxSize: "20m",
-        maxFiles: "14d",
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          utilities.format.nestLike(),
-        ),
-      }),
-    ],
-  });
-
-  const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger({
-      instance,
-    }),
-  });
+  const app = await NestFactory.create(AppModule);
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.setGlobalPrefix("api/v1");
-  // const httpAdapter = app.get(HttpAdapterHost);
   const port = 3000;
   await app.listen(port);
-
-  //1.默认logger
-  // const logger = new Logger(); //TODO：如果需要输出到文件里的话需要重新设置
-  // app.useGlobalFilters(new HttpExceptionFilter(logger, httpAdapter));
-  // logger.log(`App 运行在端口: ${port}`);
 }
+
 bootstrap();

@@ -22,14 +22,14 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot(ormconfig_1.default),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 load: [configuration_1.default],
                 validationSchema: Joi.object({}),
             }),
-            user_module_1.UserModule,
             logs_module_1.LogsModule,
+            typeorm_1.TypeOrmModule.forRoot(ormconfig_1.default),
+            user_module_1.UserModule,
         ],
         controllers: [],
         providers: [common_1.Logger],
